@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Puzzles.Tests
+namespace Puzzles.Tests.Day2
 {
     public class PuzzleSolverDay2bTests
     {

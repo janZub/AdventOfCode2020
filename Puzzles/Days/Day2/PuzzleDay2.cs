@@ -9,7 +9,7 @@ namespace Puzzles.Day2
     {
         protected int solution = 0;
 
-        protected string inputFileileName = "Day2aInput";
+        protected string inputFileileName = "Day2Input";
         protected FileExtensionEnum fileExt = FileExtensionEnum.TXT;
 
         public override void DeliverResults()

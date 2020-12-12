@@ -5,7 +5,7 @@ using System.Text;
 using Utils;
 using Xunit;
 
-namespace Puzzles.Tests
+namespace Puzzles.Tests.Utils
 {
     public class FileReaderTests
     {

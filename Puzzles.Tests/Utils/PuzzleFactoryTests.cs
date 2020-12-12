@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace Puzzles.Tests
+namespace Puzzles.Tests.Utils
 {
     public class PuzzleFactoryTests
     {

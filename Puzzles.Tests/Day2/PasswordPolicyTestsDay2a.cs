@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Xunit;
 using System;
 
-namespace Puzzles.Tests
+namespace Puzzles.Tests.Day2
 {
     public class PasswordPolicyTestsDay2a
     {
