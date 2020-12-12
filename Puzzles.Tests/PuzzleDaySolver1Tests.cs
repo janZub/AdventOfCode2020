@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Puzzles.Day1;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -12,8 +13,9 @@ namespace Puzzles.Tests
         public void Should_GetKNumbersThatSumToN(List<int> numbers, int k, int n, List<int> expected)
         {
             var solver = new PuzzleDay1Solver();
-            var nextSmallesSubset = solver.GetKNumbersThatSumToN(numbers, k, n);
-            Assert.Equal(expected, nextSmallesSubset);
+            var result = solver.GetKNumbersThatSumToN(numbers, k, n);
+        
+            Assert.Equal(expected, result);
         }
 
         [Theory]

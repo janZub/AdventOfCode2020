@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Puzzles
+namespace Puzzles.Day1
 {
     public class PuzzleDay1Solver
     {

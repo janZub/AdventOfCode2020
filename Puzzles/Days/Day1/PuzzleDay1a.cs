@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Utils;
-
-namespace Puzzles
+﻿namespace Puzzles.Day1
 {
     public class PuzzleDay1a : PuzzleDay1
     {
