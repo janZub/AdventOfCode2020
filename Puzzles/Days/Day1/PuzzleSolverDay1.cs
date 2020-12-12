@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Puzzles.Day1
 {
-    public class PuzzleDay1Solver
+    public class PuzzleSolverDay1
     {
         /* Last step -> solver1a is O(n * log(n)) 
          * The foreach loop is n

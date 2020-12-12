@@ -12,7 +12,7 @@ namespace Puzzles.Tests
         [MemberData(nameof(KNumbersThatSumToN))]
         public void Should_GetKNumbersThatSumToN(List<int> numbers, int k, int n, List<int> expected)
         {
-            var solver = new PuzzleDay1Solver();
+            var solver = new PuzzleSolverDay1();
             var result = solver.GetKNumbersThatSumToN(numbers, k, n);
         
             Assert.Equal(expected, result);
@@ -22,7 +22,7 @@ namespace Puzzles.Tests
         [MemberData(nameof(KNumbersThatNotSumToN))]
         public void ShouldNot_GetKNumbersThatSumToN(List<int> numbers, int k, int n)
         {
-            var solver = new PuzzleDay1Solver();
+            var solver = new PuzzleSolverDay1();
             var result =  solver.GetKNumbersThatSumToN(numbers, k, n);
 
             Assert.Empty(result);
@@ -32,7 +32,7 @@ namespace Puzzles.Tests
         [MemberData(nameof(TooFewNumbers))]
         public void ShouldNot_GetKNumbersThatSumToN_TooFewNumbers(List<int> numbers, int k, int n)
         {
-            var solver = new PuzzleDay1Solver();
+            var solver = new PuzzleSolverDay1();
             Assert.Throws<ArgumentException>("k", () => solver.GetKNumbersThatSumToN(numbers, k, n));
         }
 
@@ -40,7 +40,7 @@ namespace Puzzles.Tests
         [MemberData(nameof(NumbersThatSumToN))]
         public void Should_GetNumbersThatSumToN(List<int> numbers, int n)
         {
-            var solver = new PuzzleDay1Solver();
+            var solver = new PuzzleSolverDay1();
             var result = solver.GetNumbersThatSumToN(numbers, n);
 
             Assert.Equal(n, result[0] + result[1]);
@@ -51,7 +51,7 @@ namespace Puzzles.Tests
         [MemberData(nameof(NumbersThatNotSumToN))]
         public void ShouldNot_GetNumbersThatSumToN(List<int> numbers, int n)
         {
-            var solver = new PuzzleDay1Solver();
+            var solver = new PuzzleSolverDay1();
             var result = solver.GetNumbersThatSumToN(numbers, n);
 
             Assert.Empty(result);

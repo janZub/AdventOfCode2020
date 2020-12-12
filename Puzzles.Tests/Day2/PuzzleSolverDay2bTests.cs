@@ -6,17 +6,25 @@ using Xunit;
 
 namespace Puzzles.Tests
 {
-    public class PuzzleDaySolver2bTests
+    public class PuzzleSolverDay2bTests
     {
-
         [Theory]
         [ClassData(typeof(PasswordPolicySolverValidDataDay2b))]
         public void Should_GetNumberOfValidPasswords(List<PasswordPolicyDay2b> passwordPolicies, int expected)
         {
-            var solver = new PuzzleDay2bSolver();
+            var solver = new PuzzleSolverDay2b();
             var result = solver.GetNumberOfValidPasswords(passwordPolicies);
 
             Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [ClassData(typeof(PasswordPolicySolverInValidDataDay2b))]
+        public void ShouldNot_GetNumberOfValidPasswords_IndexOutO(List<PasswordPolicyDay2b> passwordPolicies)
+        {
+            var solver = new PuzzleSolverDay2b();
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => solver.GetNumberOfValidPasswords(passwordPolicies));
         }
     }
     public class PasswordPolicySolverValidDataDay2b : IEnumerable<object[]>
@@ -51,6 +59,23 @@ namespace Puzzles.Tests
                 },
                 },
                 2
+            };
+        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+    public class PasswordPolicySolverInValidDataDay2b : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            yield return new object[] {
+               new List<PasswordPolicyDay2b>(){
+               new PasswordPolicyDay2b
+                {
+                    Password = "aaaa",
+                    Occurrences = new List<int>(){2,34},
+                    Letter = "a"
+                },
+               },
             };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

@@ -6,14 +6,13 @@ using Xunit;
 
 namespace Puzzles.Tests
 {
-    public class PuzzleDaySolver2aTests
+    public class PuzzleSolverDay2aTests
     {
-
         [Theory]
         [ClassData(typeof(PasswordPolicySolverValidData))]
         public void Should_GetNumberOfValidPasswords(List<PasswordPolicyDay2a> passwordPolicies, int expected)
         {
-            var solver = new PuzzleDay2aSolver();
+            var solver = new PuzzleSolverDay2a();
             var result = solver.GetNumberOfValidPasswords(passwordPolicies);
 
             Assert.Equal(expected, result);

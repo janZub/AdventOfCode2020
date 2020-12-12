@@ -7,7 +7,7 @@ namespace Puzzles.Day2
 {
     public class PuzzleDay2a : PuzzleDay2
     {
-        protected private PuzzleDay2aSolver solver = new PuzzleDay2aSolver();
+        protected private PuzzleSolverDay2a solver = new PuzzleSolverDay2a();
         protected List<PasswordPolicyDay2a> inputData = new List<PasswordPolicyDay2a>();
 
         public override void ReadInput()

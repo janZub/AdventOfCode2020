@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Puzzles.Day2
 {
-    public class PuzzleDay2bSolver
+    public class PuzzleSolverDay2b
     {
         public int GetNumberOfValidPasswords(List<PasswordPolicyDay2b> policies)
         {
