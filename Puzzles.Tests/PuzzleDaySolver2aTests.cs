@@ -11,19 +11,12 @@ namespace Puzzles.Tests
 
         [Theory]
         [ClassData(typeof(PasswordPolicySolverValidData))]
-        public void Should_GetNumberOfValidPasswords(List<PasswordPolicy> passwordPolicies, int expected)
+        public void Should_GetNumberOfValidPasswords(List<PasswordPolicyDay2a> passwordPolicies, int expected)
         {
             var solver = new PuzzleDay2aSolver();
             var result = solver.GetNumberOfValidPasswords(passwordPolicies);
 
             Assert.Equal(expected, result);
-        }
-        public static IEnumerable<object[]> KNumbersThatSumToN()
-        {
-            yield return new object[] {
-                new List<int>() { 1, 2, 3, 5, 6, 2017 },
-                7, 2020
-            };
         }
     }
     public class PasswordPolicySolverValidData : IEnumerable<object[]>
@@ -31,26 +24,26 @@ namespace Puzzles.Tests
         public IEnumerator<object[]> GetEnumerator()
         {
             yield return new object[] {
-                new List<PasswordPolicy>(){
-               new PasswordPolicy
+                new List<PasswordPolicyDay2a>(){
+               new PasswordPolicyDay2a
                 {
                     Password = "aaaa",
-                    MinOccurances = 2,
-                    MaxOccurances = 4,
+                    MinOccurences = 2,
+                    MaxOccurences = 4,
                     Letter = "a"
                 },
-               new PasswordPolicy
+               new PasswordPolicyDay2a
                 {
                     Password = "wwakdokda",
-                    MinOccurances = 2,
-                    MaxOccurances = 4,
+                    MinOccurences = 2,
+                    MaxOccurences = 4,
                     Letter = "d"
                 },
-               new PasswordPolicy
+               new PasswordPolicyDay2a
                 {
                     Password = "aaaaa",
-                    MinOccurances = 2,
-                    MaxOccurances = 4,
+                    MinOccurences = 2,
+                    MaxOccurences = 4,
                     Letter = "m"
                 },
                 },

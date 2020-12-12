@@ -7,52 +7,50 @@ using System;
 
 namespace Puzzles.Tests
 {
-    public class PasswordPolicyTests
+    public class PasswordPolicyTestsDay2b
     {
         [Theory]
-        [ClassData(typeof(PasswordPolicyValidData))]
-        public void Should_CreatePolicy(string policy, PasswordPolicy expected)
+        [ClassData(typeof(PasswordPolicyValidDataDay2b))]
+        public void Should_CreatePolicy(string policy, PasswordPolicyDay2b expected)
         {
-            var newPolicy = new PasswordPolicy(policy);
+            var newPolicy = new PasswordPolicyDay2b(policy);
             newPolicy.Should().BeEquivalentTo(expected);
         }
 
         [Theory]
-        [ClassData(typeof(PasswordPolicyInValidData))]
+        [ClassData(typeof(PasswordPolicyInValidDataDay2b))]
         public void ShouldNot_CreatePolicy(string policy)
         {
-            Assert.Throws<ArgumentException>(() => new PasswordPolicy(policy));
+            Assert.Throws<ArgumentException>(() => new PasswordPolicyDay2b(policy));
         }
     }
-    public class PasswordPolicyValidData : IEnumerable<object[]>
+    public class PasswordPolicyValidDataDay2b : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {
             yield return new object[] {
                 "2-4 m: aaaaa",
-                new PasswordPolicy
+                new PasswordPolicyDay2b
                 {
                     Password = "aaaaa",
-                    MinOccurances = 2,
-                    MaxOccurances = 4,
+                    Occurrences = new List<int>(){2,4},
                     Letter = "m"
                 }
             };
 
             yield return new object[] {
-                "0-31 c: aaswaoikoaaaa",
-                new PasswordPolicy
+                "1-3-7 c: aaswaoikoaaaa",
+                new PasswordPolicyDay2b
                 {
                     Password = "aaswaoikoaaaa",
-                    MinOccurances = 0,
-                    MaxOccurances = 31,
+                    Occurrences = new List<int>(){1,3,7},
                     Letter = "c"
                 }
             };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
-    public class PasswordPolicyInValidData : IEnumerable<object[]>
+    public class PasswordPolicyInValidDataDay2b : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {

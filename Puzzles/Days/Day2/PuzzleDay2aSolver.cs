@@ -8,7 +8,7 @@ namespace Puzzles.Day2
 {
     public class PuzzleDay2aSolver
     {
-        public int GetNumberOfValidPasswords(List<PasswordPolicy> policies)
+        public int GetNumberOfValidPasswords(List<PasswordPolicyDay2a> policies)
         {
             int result = 0;
             foreach (var policy in policies)
@@ -18,17 +18,17 @@ namespace Puzzles.Day2
             }
             return result;
         }
-        private bool ChekIfPolicyWorks(PasswordPolicy policy)
+        private bool ChekIfPolicyWorks(PasswordPolicyDay2a policy)
         {
             var result = Regex.Matches(policy.Password, policy.Letter);
             var checkResult = CheckResult(result, policy);
 
             return checkResult;
         }
-        private bool CheckResult(MatchCollection matches, PasswordPolicy policy)
+        private bool CheckResult(MatchCollection matches, PasswordPolicyDay2a policy)
         {
-            return matches.Count <= policy.MaxOccurances
-                && matches.Count >= policy.MinOccurances;
+            return matches.Count <= policy.MaxOccurences
+                && matches.Count >= policy.MinOccurences;
         }
     }
 }
