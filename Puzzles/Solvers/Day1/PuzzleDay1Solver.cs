@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Puzzles
 {
-    public class PuzzleDay1bSolver
+    public class PuzzleDay1Solver
     {
         /* Last step -> solver1a is O(n * log(n)) 
          * The foreach loop is n
@@ -14,26 +14,13 @@ namespace Puzzles
          * Total should be O(n^(k-2) * n * log(n)) 
          * => O(n^(k-1) * log(n))
          */
-
-        /* We should inject PuzzleDay1aSolver as dependency 
-         * and unit test should do it with mock.
-         * Otherwise it's integration test.
-         * -------------------------------------------------
-         * In fact we should:
-         * - move only function of PuzzleDay1a here and delete that class
-         * - change name of PuzzleDay1bSolver => PuzzleDay1Solver
-         * - we would have class with 2 public functions.
-         * Now we have 1 public function and dependency which is worse.
-         */
-
-        private PuzzleDay1aSolver solver1a = new PuzzleDay1aSolver();
         public List<int> GetKNumbersThatSumToN(List<int> numbers, int k, int n)
         {
             if (numbers.Count < k)
                 throw new ArgumentException("There are too few numbers in list", "k");
 
             if (k == 2)
-                return SolveFor2Numbers(numbers, n);
+                return GetNumbersThatSumToN(numbers, n);
 
             foreach (int number in numbers)
             {
@@ -50,9 +37,36 @@ namespace Puzzles
 
             return new List<int>();
         }
-        private List<int> SolveFor2Numbers(List<int> numbers, int n)
+        /* 
+         * Sorting is O(n * log(n))
+         * Comparing should be O(n), 
+         * with each iteration removes last number
+         * or progress to the next one
+         * 
+         * Total should be O(n * log(n))
+         */
+        public List<int> GetNumbersThatSumToN(List<int> list, int n)
         {
-            return solver1a.GetNumbersThatSumToN(numbers, n);
+            list = list.OrderBy(i => i).ToList();
+
+            int k = list.Count - 1;
+            for (int i = 0; i <= k; i++)
+            {
+                while (i < k)
+                {
+                    var sum = list[i] + list[k];
+
+                    if (sum > n)
+                        --k;
+                    else if
+                        (sum == n) return new List<int>() { list[i], list[k] };
+                    else
+                        break;
+
+                }
+            }
+            return new List<int>();
         }
+
     }
 }

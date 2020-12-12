@@ -4,14 +4,14 @@ using Xunit;
 
 namespace Puzzles.Tests
 {
-    public class PuzzleDaySolver1bTests
+    public class PuzzleDaySolver1Tests
     {
 
         [Theory]
         [MemberData(nameof(KNumbersThatSumToN))]
         public void Should_GetKNumbersThatSumToN(List<int> numbers, int k, int n, List<int> expected)
         {
-            var solver = new PuzzleDay1bSolver();
+            var solver = new PuzzleDay1Solver();
             var nextSmallesSubset = solver.GetKNumbersThatSumToN(numbers, k, n);
             Assert.Equal(expected, nextSmallesSubset);
         }
@@ -20,7 +20,7 @@ namespace Puzzles.Tests
         [MemberData(nameof(KNumbersThatNotSumToN))]
         public void ShouldNot_GetKNumbersThatSumToN(List<int> numbers, int k, int n)
         {
-            var solver = new PuzzleDay1bSolver();
+            var solver = new PuzzleDay1Solver();
             var result =  solver.GetKNumbersThatSumToN(numbers, k, n);
 
             Assert.Empty(result);
@@ -30,8 +30,41 @@ namespace Puzzles.Tests
         [MemberData(nameof(TooFewNumbers))]
         public void ShouldNot_GetKNumbersThatSumToN_TooFewNumbers(List<int> numbers, int k, int n)
         {
-            var solver = new PuzzleDay1bSolver();
+            var solver = new PuzzleDay1Solver();
             Assert.Throws<ArgumentException>("k", () => solver.GetKNumbersThatSumToN(numbers, k, n));
+        }
+
+        [Theory]
+        [MemberData(nameof(NumbersThatSumToN))]
+        public void Should_GetNumbersThatSumToN(List<int> numbers, int n)
+        {
+            var solver = new PuzzleDay1Solver();
+            var result = solver.GetNumbersThatSumToN(numbers, n);
+
+            Assert.Equal(n, result[0] + result[1]);
+            Assert.Equal(2, result.Count);
+        }
+
+        [Theory]
+        [MemberData(nameof(NumbersThatNotSumToN))]
+        public void ShouldNot_GetNumbersThatSumToN(List<int> numbers, int n)
+        {
+            var solver = new PuzzleDay1Solver();
+            var result = solver.GetNumbersThatSumToN(numbers, n);
+
+            Assert.Empty(result);
+        }
+
+        public static IEnumerable<object[]> NumbersThatSumToN()
+        {
+            yield return new object[] { new List<int>() { 1, 2, 3, 4, 2017 }, 2020 };
+            yield return new object[] { new List<int>() { 2011, 300, 3, 4, 200, 1720 }, 2020 };
+            yield return new object[] { new List<int>() { 2011, 300, 3, 4, 200, 1720 }, 2311 };
+        }
+        public static IEnumerable<object[]> NumbersThatNotSumToN()
+        {
+            yield return new object[] { new List<int>() { 3000 }, 2020 };
+            yield return new object[] { new List<int>() { 10, 31, 50, 11, 231, 2308, 32123 }, 2020 };
         }
 
         public static IEnumerable<object[]> KNumbersThatSumToN()

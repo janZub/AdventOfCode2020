@@ -7,6 +7,7 @@ namespace Puzzles
 {
     public abstract class PuzzleDay1 : Puzzle
     {
+        protected private PuzzleDay1Solver solver = new PuzzleDay1Solver();
         protected List<int> inputData = new List<int>();
         protected List<int> solution = new List<int>();
 
@@ -31,6 +32,11 @@ namespace Puzzles
                 FormatFoundNumberMessage();
                 FormatFoundQuotientMessage();
             }
+        }
+
+        public override void Solve()
+        {
+            solution = solver.GetKNumbersThatSumToN(inputData, numberOfComponents, sumTo);
         }
 
         private void FormatFoundNumberMessage()
