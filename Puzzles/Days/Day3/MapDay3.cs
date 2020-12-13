@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Puzzles.Day3
 {
-    public class MapDay3a
+    public class MapDay3
     {
-        public MapDay3a(List<string> inputMap, int moveBottom, int moveRight)
+        public MapDay3(List<string> inputMap, int moveBottom, int moveRight)
         {
             Map = inputMap;
             Height = inputMap.Count;

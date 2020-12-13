@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Puzzles.Day3
 {
-    public class PuzzleSolverDay3a
+    public class PuzzleSolverDay3
     {
-        public int GetNumberOfTreesInAway(MapDay3a map)
+        public int GetNumberOfTreesInAway(MapDay3 map)
         {
             var numberOfTrees = 0;
 
@@ -17,6 +17,15 @@ namespace Puzzles.Day3
 
                 map.Move();
             }
+            return numberOfTrees;
+        }
+
+        public long GetNumberOfTreesInAway(List<MapDay3> maps)
+        {
+            long numberOfTrees = 1;
+            foreach (var map in maps)
+                numberOfTrees = numberOfTrees * GetNumberOfTreesInAway(map);
+
             return numberOfTrees;
         }
     }
