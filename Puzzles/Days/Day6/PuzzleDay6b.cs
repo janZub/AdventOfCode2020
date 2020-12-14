@@ -5,7 +5,7 @@ using Utils;
 
 namespace Puzzles.Day6
 {
-    public class PuzzleDay6a : PuzzleDay6
+    public class PuzzleDay6b : PuzzleDay6
     {
         public override void ReadInput()
         {
@@ -13,8 +13,7 @@ namespace Puzzles.Day6
             var input = FileReader.ReadFile(path, inputFileileName, fileExt);
 
             var groupsData = inputHandler.ConvertListToGroupDataList(input);
-            var onlyStringInput = groupsData.Select(g => g.Item1).ToList();
-            inputData = inputHandler.CreateGroup6aFromInput(onlyStringInput);
+            inputData = inputHandler.CreateGroup6bFromInput(groupsData);
         }
     }
 }

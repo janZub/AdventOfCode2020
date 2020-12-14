@@ -13,7 +13,7 @@ namespace Puzzles.Tests.Day6
     {
         [Theory]
         [ClassData(typeof(PuzzleSolverDay6TestData))]
-        public void Should_CountAnswersInGroups(List<GroupDay6> groups, int expectedCount)
+        public void Should_CountAnswersInGroups(List<IGroupDay6> groups, int expectedCount)
         {
             var solver = new PuzzleSolverDay6();
             var result = solver.CountAnswersInGroups(groups);
@@ -26,14 +26,14 @@ namespace Puzzles.Tests.Day6
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            Mock<GroupDay6> group1 = new Mock<GroupDay6>(null);
+            Mock<IGroupDay6> group1 = new Mock<IGroupDay6>();
             group1.Setup(s => s.CountDifferentAnswers()).Returns(2);
 
-            Mock<GroupDay6> group2 = new Mock<GroupDay6>(null);
+            Mock<IGroupDay6> group2 = new Mock<IGroupDay6>();
             group2.Setup(s => s.CountDifferentAnswers()).Returns(7);
 
             yield return new object[] {
-                new List<GroupDay6>(){ group1.Object, group2.Object },
+                new List<IGroupDay6>(){ group1.Object, group2.Object },
                 9
             };
         }

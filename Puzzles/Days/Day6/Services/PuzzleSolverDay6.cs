@@ -8,7 +8,7 @@ namespace Puzzles.Day6
 {
     public class PuzzleSolverDay6
     {
-        public int CountAnswersInGroups(List<GroupDay6> groups)
+        public int CountAnswersInGroups(List<IGroupDay6> groups)
         {
             int groupsAnswers = 0;
             foreach (var group in groups)

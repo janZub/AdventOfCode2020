@@ -8,16 +8,16 @@ using Xunit;
 
 namespace Puzzles.Tests.Day6
 {
-    public class GroupDay6Tests
+    public class GroupDay6bTests
     {
         [Theory]
-        [InlineData("aa a aaabbb aa", 2)]
-        [InlineData("abcde", 5)]
-        [InlineData("aaaaaaaa", 1)]
-        [InlineData("", 0)]
-        public void Should_CountDistinctQuestions(string data, int expected)
+        [InlineData("aabbaacc", 7, 0)]
+        [InlineData("abcde", 1, 5)]
+        [InlineData("aaaaaaaa", 8, 1)]
+        [InlineData("", 0, 0)]
+        public void Should_CountDistinctQuestions(string data, int groupSize, int expected)
         {
-            var group = new GroupDay6(data);
+            var group = new GroupDay6b(data, groupSize);
             var nrAnswers = group.CountDifferentAnswers();
 
             Assert.Equal(expected, nrAnswers);
