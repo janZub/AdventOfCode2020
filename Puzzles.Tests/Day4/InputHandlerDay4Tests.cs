@@ -14,7 +14,7 @@ namespace Puzzles.Tests.Day4
         [ClassData(typeof(InputHandlerDay4aData))]
         public void Should_CreatePassporsDay4aFromInput(List<string> lines, List<PassportDay4a> expectedPassports)
         {
-            var inputHandler = new InputHandlerDay4();
+            var inputHandler = new InputHandlerServiceDay4();
             var passports = inputHandler.CreatePassports4aFromInput(lines);
 
             passports.Should().AllBeOfType(typeof(PassportDay4a));
@@ -25,7 +25,7 @@ namespace Puzzles.Tests.Day4
         [ClassData(typeof(InputHandlerDay4bData))]
         public void Should_CreatePassporsDay4bFromInput(List<string> lines, List<PassportDay4b> expectedPassports)
         {
-            var inputHandler = new InputHandlerDay4();
+            var inputHandler = new InputHandlerServiceDay4();
             var passports = inputHandler.CreatePassports4bFromInput(lines);
 
             passports.Should().AllBeOfType(typeof(PassportDay4b));
@@ -36,7 +36,7 @@ namespace Puzzles.Tests.Day4
         [ClassData(typeof(InputHandlerDay4PassportDataInLines))]
         public void Should_ConvertListToPassportDataList(List<string> lines, List<string> expectedPassportsData)
         {
-            var inputHandler = new InputHandlerDay4();
+            var inputHandler = new InputHandlerServiceDay4();
             var passportsData = inputHandler.ConvertListToPassportDataList(lines);
 
             expectedPassportsData.Should().BeEquivalentTo(passportsData);
@@ -73,7 +73,7 @@ namespace Puzzles.Tests.Day4
             var passportData1 = "ecl:   gry pid:860033327 eyr:2020 hcl:#fffffd";
             var passportData2 = "iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884";
 
-            var mock = new Mock<PassportPropertyValidator>();
+            var mock = new Mock<PasswordValidationService>();
             var passports = new List<PassportDay4b>()
             {
                 new PassportDay4b(passportData1, mock.Object),

@@ -11,7 +11,7 @@ namespace Puzzles.Day4
         protected int solution;
 
         protected PuzzleSolverDay4 solver = new PuzzleSolverDay4();
-        protected InputHandlerDay4 inputHandler = new InputHandlerDay4();
+        protected InputHandlerServiceDay4 inputHandler = new InputHandlerServiceDay4();
 
         protected string inputFileileName = "Day4Input";
         protected FileExtensionEnum fileExt = FileExtensionEnum.TXT;

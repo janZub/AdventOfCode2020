@@ -16,7 +16,7 @@ namespace Puzzles.Tests.Day4
         [MemberData(nameof(PassportValidatorData))]
         public void Should_IsPropertyValid(string[] match, string property, bool expectedIsValid)
         {
-            var validator = new PassportPropertyValidator();
+            var validator = new PasswordValidationService();
             var isValid = validator.IsPropertyValid(match, property);
 
             Assert.Equal(expectedIsValid, isValid);
@@ -26,7 +26,7 @@ namespace Puzzles.Tests.Day4
         [InlineData(new string[] { "nonExistingParam", "" }, "nonExistingParam")]
         public void ShouldNot_IsPropertyValid(string[] match, string nonExistingProperty)
         {
-            var validator = new PassportPropertyValidator();
+            var validator = new PasswordValidationService();
             Assert.Throws<ArgumentException>("property", () => validator.IsPropertyValid(match, nonExistingProperty));
         }
 

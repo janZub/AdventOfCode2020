@@ -2,7 +2,7 @@
 
 namespace Puzzles.Day4
 {
-    public class InputHandlerDay4
+    public class InputHandlerServiceDay4
     {
         public List<IPassportDay4> CreatePassports4aFromInput(List<string> passportData)
         {
@@ -16,7 +16,7 @@ namespace Puzzles.Day4
         {
             var passportList = new List<IPassportDay4>();
             foreach (var data in passportData)
-                passportList.Add(new PassportDay4b(data, new PassportPropertyValidator()));
+                passportList.Add(new PassportDay4b(data, new PasswordValidationService()));
 
             return passportList;
         }

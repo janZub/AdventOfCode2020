@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Puzzles.Day4
 {
-    public class PassportPropertyValidator : IPassportValidator
+    public class PasswordValidationService : IPassportValidator
     {
         public bool IsPropertyValid(string[] match, string property)
         {
