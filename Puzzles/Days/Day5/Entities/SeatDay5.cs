@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Puzzles.Day5
 {
-    public class Seat
+    public class SeatDay5
     {
         public virtual string Code { get; }
-        public Seat(string code)
+        public SeatDay5(string code)
         {
             Code = code;
         }

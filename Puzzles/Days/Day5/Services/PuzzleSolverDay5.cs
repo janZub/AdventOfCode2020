@@ -8,11 +8,11 @@ namespace Puzzles.Day5
 {
     public class PuzzleSolverDay5
     {
-        public int GetMaxSeatId(List<Seat> seats)
+        public int GetMaxSeatId(List<SeatDay5> seats)
         {
             return GetListOfSeatIds(seats).Max();
         }
-        public List<int> GetListOfSeatIds(List<Seat> seats)
+        public List<int> GetListOfSeatIds(List<SeatDay5> seats)
         {
             var seatIds = new List<int>();
 
@@ -21,7 +21,7 @@ namespace Puzzles.Day5
 
             return seatIds;
         }
-        public int GetMissingId(List<Seat> seats)
+        public int GetMissingId(List<SeatDay5> seats)
         {
             var seatsIds = GetListOfSeatIds(seats).OrderBy(i => i).ToList();
 

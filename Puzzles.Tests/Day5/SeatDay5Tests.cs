@@ -19,7 +19,7 @@ namespace Puzzles.Tests.Day5
         [InlineData("BBBBBBBRLL", 127)]
         public void Should_GetRowId(string code, int expectedRowId)
         {
-            var seat = new Seat(code);
+            var seat = new SeatDay5(code);
             var result = seat.GetRowId();
 
             Assert.Equal(expectedRowId, result);
@@ -32,7 +32,7 @@ namespace Puzzles.Tests.Day5
         [InlineData("FFFFFFFLLL", 0)]
         public void Should_GetColumnId(string code, int expectedRowId)
         {
-            var seat = new Seat(code);
+            var seat = new SeatDay5(code);
             var result = seat.GetColumnId();
 
             Assert.Equal(expectedRowId, result);
@@ -45,7 +45,7 @@ namespace Puzzles.Tests.Day5
         [InlineData("FFFFFFFLLL", 0)]
         public void Should_SeatId(string code, int expectedRowId)
         {
-            var seat = new Seat(code);
+            var seat = new SeatDay5(code);
             var result = seat.GetSeatId();
 
             Assert.Equal(expectedRowId, result);

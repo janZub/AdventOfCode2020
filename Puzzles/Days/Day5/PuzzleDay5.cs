@@ -7,7 +7,7 @@ namespace Puzzles.Day5
 {
     public abstract class PuzzleDay5 : Puzzle
     {
-        protected List<Seat> inputData = new List<Seat>();
+        protected List<SeatDay5> inputData = new List<SeatDay5>();
         protected int solution;
         protected PuzzleSolverDay5 solver = new PuzzleSolverDay5();
         protected InputHandlerDay5Service inputHandler = new InputHandlerDay5Service();

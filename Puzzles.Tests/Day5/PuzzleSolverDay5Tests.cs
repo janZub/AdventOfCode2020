@@ -13,7 +13,7 @@ namespace Puzzles.Tests.Day5
     {
         [Theory]
         [ClassData(typeof(PuzzleSolverDay5TestData))]
-        public void Should_GetMaxSeatId(List<Seat> seats, int expectedMaxId)
+        public void Should_GetMaxSeatId(List<SeatDay5> seats, int expectedMaxId)
         {
             var solver = new PuzzleSolverDay5();
             var result = solver.GetMaxSeatId(seats);
@@ -22,7 +22,7 @@ namespace Puzzles.Tests.Day5
         }
         [Theory]
         [ClassData(typeof(PuzzleSolverDay5TestDataListOfIds))]
-        public void Should_GetListOfSeatIds(List<Seat> seats, List<int> expectedIds)
+        public void Should_GetListOfSeatIds(List<SeatDay5> seats, List<int> expectedIds)
         {
             var solver = new PuzzleSolverDay5();
             var result = solver.GetListOfSeatIds(seats);
@@ -33,7 +33,7 @@ namespace Puzzles.Tests.Day5
 
         [Theory]
         [ClassData(typeof(PuzzleSolverDay5TestDataMissingId))]
-        public void Should_FindMissingId(List<Seat> seats, int missingId)
+        public void Should_FindMissingId(List<SeatDay5> seats, int missingId)
         {
             var solver = new PuzzleSolverDay5();
             var result = solver.GetMissingId(seats);
@@ -43,7 +43,7 @@ namespace Puzzles.Tests.Day5
 
         [Theory]
         [ClassData(typeof(PuzzleSolverDay5TestDataMissingIdFail))]
-        public void ShouldNot_FindMissingId(List<Seat> seats)
+        public void ShouldNot_FindMissingId(List<SeatDay5> seats)
         {
             var solver = new PuzzleSolverDay5();
 
@@ -55,14 +55,14 @@ namespace Puzzles.Tests.Day5
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            Mock<Seat> seat1 = new Mock<Seat>(null);
+            Mock<SeatDay5> seat1 = new Mock<SeatDay5>(null);
             seat1.Setup(s => s.GetSeatId()).Returns(2);
 
-            Mock<Seat> seat2 = new Mock<Seat>(null);
+            Mock<SeatDay5> seat2 = new Mock<SeatDay5>(null);
             seat2.Setup(s => s.GetSeatId()).Returns(5);
 
             yield return new object[] {
-                new List<Seat>(){ seat1.Object, seat2.Object }, 5
+                new List<SeatDay5>(){ seat1.Object, seat2.Object }, 5
             };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -72,14 +72,14 @@ namespace Puzzles.Tests.Day5
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            Mock<Seat> seat1 = new Mock<Seat>(null);
+            Mock<SeatDay5> seat1 = new Mock<SeatDay5>(null);
             seat1.Setup(s => s.GetSeatId()).Returns(2);
 
-            Mock<Seat> seat2 = new Mock<Seat>(null);
+            Mock<SeatDay5> seat2 = new Mock<SeatDay5>(null);
             seat2.Setup(s => s.GetSeatId()).Returns(5);
 
             yield return new object[] {
-                new List<Seat>(){ seat1.Object, seat2.Object },
+                new List<SeatDay5>(){ seat1.Object, seat2.Object },
                 new List<int>(){2,5}
             };
         }
@@ -90,14 +90,14 @@ namespace Puzzles.Tests.Day5
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            Mock<Seat> seat1 = new Mock<Seat>(null);
+            Mock<SeatDay5> seat1 = new Mock<SeatDay5>(null);
             seat1.Setup(s => s.GetSeatId()).Returns(2);
 
-            Mock<Seat> seat2 = new Mock<Seat>(null);
+            Mock<SeatDay5> seat2 = new Mock<SeatDay5>(null);
             seat2.Setup(s => s.GetSeatId()).Returns(4);
 
             yield return new object[] {
-                new List<Seat>(){ seat1.Object, seat2.Object }, 3
+                new List<SeatDay5>(){ seat1.Object, seat2.Object }, 3
             };
 
         }
@@ -107,14 +107,14 @@ namespace Puzzles.Tests.Day5
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            Mock<Seat> seat1 = new Mock<Seat>(null);
+            Mock<SeatDay5> seat1 = new Mock<SeatDay5>(null);
             seat1.Setup(s => s.GetSeatId()).Returns(2);
 
-            Mock<Seat> seat2 = new Mock<Seat>(null);
+            Mock<SeatDay5> seat2 = new Mock<SeatDay5>(null);
             seat2.Setup(s => s.GetSeatId()).Returns(5);
             
             yield return new object[] {
-                new List<Seat>(){ seat1.Object, seat2.Object }
+                new List<SeatDay5>(){ seat1.Object, seat2.Object }
             };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
