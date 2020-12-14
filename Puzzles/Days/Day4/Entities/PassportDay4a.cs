@@ -6,35 +6,24 @@ using System.Text.RegularExpressions;
 
 namespace Puzzles.Day4
 {
-    public class Passport
+    public class PassportDay4a : PassportDay4
     {
-        public List<string> Lines { get; }
-        public Passport(List<string> lines)
+        public PassportDay4a(string lines) : base(lines) { }
+        private string pattern
         {
-            this.Lines = lines;
+            get =>
+               string.Format(@"(({0})):", string.Join(")|(", RequiredProperties));
         }
-        public static List<string> RequiredProperties
-        {
-            get => new List<string>()
-            { "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid" };
-        }
-        public bool IsValid()
+        public override bool IsValid()
         {
             var match = GetMatch();
             var isValid = ValidateMatch(match);
 
             return isValid;
         }
-
-        private static string Patterns
-        {
-            get =>
-               string.Format(@"(({0})):", string.Join(")|(", RequiredProperties));
-        }
         private MatchCollection GetMatch()
         {
-            var allData = string.Join(' ', Lines);
-            var match = Regex.Matches(allData, Patterns);
+            var match = Regex.Matches(Data, pattern);
 
             return match;
         }
@@ -51,7 +40,5 @@ namespace Puzzles.Day4
 
             return true;
         }
-
-
     }
 }

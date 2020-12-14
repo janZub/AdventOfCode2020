@@ -6,9 +6,9 @@ using Utils;
 
 namespace Puzzles.Day4
 {
-    public class PuzzleSolverDay4a
+    public class PuzzleSolverDay4
     {
-        public int CountValidPassports(List<Passport> passports)
+        public int CountValidPassports(List<IPassportDay4> passports)
         {
             int validPasswords = 0;
             foreach (var p in passports)
