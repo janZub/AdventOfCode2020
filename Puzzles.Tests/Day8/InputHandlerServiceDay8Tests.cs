@@ -8,7 +8,7 @@ using System;
 
 namespace Puzzles.Tests.Day8
 {
-    public class InputHandlerServiceDay7Tests
+    public class InputHandlerServiceDay8Tests
     {
         [Theory]
         [ClassData(typeof(CreateCommandData))]

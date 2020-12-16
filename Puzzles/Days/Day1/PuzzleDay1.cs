@@ -8,20 +8,20 @@ namespace Puzzles.Day1
     public abstract class PuzzleDay1 : Puzzle
     {
         protected private PuzzleSolverDay1 solver = new PuzzleSolverDay1();
-        protected List<int> inputData = new List<int>();
-        protected List<int> solution = new List<int>();
+        protected List<ulong> inputData = new List<ulong>();
+        protected List<ulong> solution = new List<ulong>();
 
         protected string inputFileileName = "Day1Input";
         protected FileExtensionEnum fileExt = FileExtensionEnum.TXT;
         protected virtual int numberOfComponents { get; }
-        protected virtual int sumTo { get; }
+        protected virtual ulong sumTo { get; }
 
         public override void ReadInput()
         {
             var path = PuzzleUtils.PuzzleInputsPath;
             var input = FileReader.ReadFile(path, inputFileileName, fileExt);
 
-            inputData = input.Select(i => int.Parse(i)).ToList();
+            inputData = input.Select(i => ulong.Parse(i)).ToList();
         }
         public override void DeliverResults()
         {
@@ -47,7 +47,7 @@ namespace Puzzles.Day1
         private void FormatFoundQuotientMessage()
         {
             var msg = string.Join(" * ", solution);
-            var r = 1;
+            ulong r = 1;
             for (int i = 0; i < solution.Count; i++)
             {
                 r *= solution[i];

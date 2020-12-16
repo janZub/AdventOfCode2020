@@ -87,9 +87,8 @@ namespace Puzzles.Tests.Day8
             yield return new object[] {
                new List<CommandDay8>(){
                 new CommandDay8b(CommandDay8Enum.jmp, 0),
+                new CommandDay8b(CommandDay8Enum.jmp, 0),
                 new CommandDay8(CommandDay8Enum.acc, 1),
-                new CommandDay8b(CommandDay8Enum.jmp, 4),
-                new CommandDay8(CommandDay8Enum.acc, 3),
                },
             };
             yield return new object[] {
