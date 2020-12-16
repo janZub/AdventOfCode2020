@@ -39,18 +39,25 @@ namespace Puzzles.Tests.Day7
                 ["node2"] = 1,
                 ["node3"] = 1
             };
-            var nodes2 = new Dictionary<string, int>()
+            var nodes1a = new Dictionary<string, int>()
             {
                 ["node3"] = 1,
                 ["node4"] = 1,
                 ["node4"] = 1
             };
 
+            var nodes1b = new Dictionary<string, int>()
+            {
+                ["node1"] = 1,
+                ["node2"] = 1,
+                ["node3"] = 1,
+                ["node4"] = 1
+            };
             var graph1 = PuzzleDay7GraphMock.SetUpGraphMock(nodes1, "node1").Object;
             var graph2 = PuzzleDay7GraphMock.SetUpGraphMock(nodes1, "node2").Object;
 
-            var graph1a = PuzzleDay7GraphMock.SetUpGraphMock(nodes2, "node1").Object;
-            var graph1b = PuzzleDay7GraphMock.SetUpGraphMock(nodes1, "node1").Object;
+            var graph1a = PuzzleDay7GraphMock.SetUpGraphMock(nodes1a, "node1").Object;
+            var graph1b = PuzzleDay7GraphMock.SetUpGraphMock(nodes1b, "node1").Object;
 
 
             yield return new object[] {

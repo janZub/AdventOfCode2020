@@ -24,7 +24,7 @@ namespace Puzzles.Tests.Day7
         public void Should_FindWeight(Dictionary<string, GraphNodeDay7> graph, string searchedNode, int expectedWeight)
         {
             var solver = new PuzzleSolverDay7();
-            var result = solver.FindWeightInNode(graph, searchedNode);
+            var result = solver.FindWeightInNode(graph, searchedNode, new HashSet<string>());
 
             Assert.Equal(expectedWeight, result);
         }

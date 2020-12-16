@@ -29,20 +29,25 @@ namespace Puzzles.Day7
 
             return nodesConnectedToSearchedNode.Count;
         }
-        public int FindWeightInNode(Dictionary<string, GraphNodeDay7> graph, string searchedNode)
+
+        public long FindWeightInNode(Dictionary<string, GraphNodeDay7> graph, string searchedNode, HashSet<string> visitedNodes)
         {
-            var weight = 1;
+            long weight = 1;
 
             if (!graph.ContainsKey(searchedNode))
                 return 0;
 
+            if (!visitedNodes.Add(searchedNode))
+                return 1;
+
             if (graph[searchedNode].ConnectedNodesBelow.Count == 0)
                 return 1;
+
             else
             {
                 foreach (var nodeBelow in graph[searchedNode].ConnectedNodesBelow)
                 {
-                    weight += nodeBelow.Value * FindWeightInNode(graph, nodeBelow.Key);
+                    weight += nodeBelow.Value * FindWeightInNode(graph, nodeBelow.Key, new HashSet<string>(visitedNodes));
                 }
                 return weight;
             }

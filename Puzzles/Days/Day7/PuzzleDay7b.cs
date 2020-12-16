@@ -9,7 +9,7 @@ namespace Puzzles.Day7
     {
        public override void Solve()
         {
-            solution = solver.FindWeightInNode(inputData, "shiny gold") - 1;
+            solution = solver.FindWeightInNode(inputData, "shiny gold", new HashSet<string>()) - 1;
         }
 
         public override void DeliverResults()
