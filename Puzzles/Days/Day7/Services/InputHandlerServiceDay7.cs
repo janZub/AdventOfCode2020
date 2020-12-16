@@ -7,6 +7,8 @@ namespace Puzzles.Day7
 {
     public class InputHandlerServiceDay7
     {
+        private string pattern = @"([a-z\s]*)\sbags\scontain(?:\s([\d])*\s([a-z\s]*)bags?[,|\.])*";
+
         public Dictionary<string, GraphNodeDay7> AddNode(Dictionary<string, GraphNodeDay7> nodes, GraphNodeDay7 newNode)
         {
             var newNodes = new Dictionary<string, GraphNodeDay7>(nodes);
@@ -15,38 +17,65 @@ namespace Puzzles.Day7
             if (newNodes.ContainsKey(key))
             {
                 var existingNode = newNodes[key];
-                newNode.ConnectedNodesBelow.UnionWith(existingNode.ConnectedNodesBelow);
-                newNode.ConnectedNodesUp.UnionWith(existingNode.ConnectedNodesUp);
+                foreach (var nodebelow in existingNode.ConnectedNodesBelow)
+                    newNode.ConnectedNodesBelow.TryAdd(nodebelow.Key, nodebelow.Value);
             }
             else
                 newNodes.Add(key, newNode);
 
             return newNodes;
         }
-        public GraphNodeDay7 CreateNode(string input)
+
+        public GraphNodeDay7 CreateNodeWithNodesBelow(string input)
         {
-            var node = new  GraphNodeDay7();
-            var matches = Regex.Matches(input, pattern);
-
-            if (matches.Count == 0)
-                throw new ArgumentException("Input string not correct, no match with pattern.","input");
-
-            node.Name = matches[0].Groups[1].Value.Trim();
-            var nodesBelow = matches[0].Groups[3].Captures.Select(v => v.Value.Trim());
-            
-            foreach (var nb in nodesBelow)
-            {
-                if (nb == "no other")
-                    continue;
-
-                node.AddNodeBellow(nb);
-            }
-
+            var matches = GetMatches(input);
+            var node = SetUpNode(matches);
 
             return node;
         }
 
-        private string pattern = @"([a-z\s]*)\sbags\scontain([\s\d]*\s([a-z\s]*)bags?[,|\.])*";
+        private GraphNodeDay7 SetUpNode(GroupCollection matches)
+        {
+            var node = new GraphNodeDay7();
 
+            node.Name = matches[1].Value.Trim();
+
+            if (matches.Count == 4)
+            {
+                for (int i = 0; i < matches[3].Captures.Count; i++)
+                {
+                    var values = GetNodeNameAndWeight(matches, i);
+                    node.AddNodeBellow(values.Item1, values.Item2);
+                }
+            }
+            return node;
+        }
+
+        private Tuple<string, int> GetNodeNameAndWeight(GroupCollection groups, int position)
+        {
+            var name = groups[3].Captures[position].Value.Trim();
+            var weightCapture = groups[2].Captures[position].Value.Trim();
+
+            if (!int.TryParse(weightCapture, out int weight))
+                throw new Exception("Couldn't cast weight to int," +
+                    " probably provided matches did not have matching number of bags names and weights");
+
+            return new Tuple<string, int>(name, weight);
+        }
+
+        private GroupCollection GetMatches(string input)
+        {
+            var matches = Regex.Matches(input, pattern);
+
+            if (!matches.Any() || matches[0].Groups.Count == 0)
+                throw new ArgumentException("Input string not correct, no match with pattern.", "input");
+
+            var matchedGroups = matches[0].Groups;
+
+            if (matchedGroups.Count == 4 && (matchedGroups[2].Captures.Count != matchedGroups[3].Captures.Count))
+                throw new Exception("Input do not have matching number of bags names and weights");
+
+            return matchedGroups;
+        }
     }
 }

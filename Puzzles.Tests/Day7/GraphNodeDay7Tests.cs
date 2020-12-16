@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using Puzzles.Day7;
+using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
@@ -9,8 +10,8 @@ namespace Puzzles.Tests.Day7
     public class GraphNodeDay7Tests
     {
         [Theory]
-        [MemberData(nameof(AddNodeData))]
-        public void Should_AddNodeBellow(string node, HashSet<string> expectedNodes)
+        [ClassData(typeof(AddDefaultNodeBellowData))]
+        public void Should_AddDefaultNodeBellow(string node, Dictionary<string, int> expectedNodes)
         {
             var graph = new GraphNodeDay7();
 
@@ -18,20 +19,34 @@ namespace Puzzles.Tests.Day7
             Assert.Equal(expectedNodes, graph.ConnectedNodesBelow);
         }
         [Theory]
-        [MemberData(nameof(AddNodeData))]
-        public void Should_AddNodeUp(string node, HashSet<string> expectedNodes)
+        [ClassData(typeof(AddNodeBellowData))]
+        public void Should_AddNodeBellow(string node, int weight,  Dictionary<string, int> expectedNodes)
         {
             var graph = new GraphNodeDay7();
 
-            graph.AddNodeUp(node);
-            Assert.Equal(expectedNodes, graph.ConnectedNodesUp);
+            graph.AddNodeBellow(node, weight);
+            Assert.Equal(expectedNodes, graph.ConnectedNodesBelow);
         }
-        public static IEnumerable<object[]> AddNodeData()
+    }
+    public class AddDefaultNodeBellowData : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
         {
             yield return new object[] {
-                "node", new HashSet<string>() {"node" }
+                "node", new Dictionary<string,int>() {["node"] = 1 },
             };
         }
-
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
+    public class AddNodeBellowData : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+        yield return new object[] {
+                "node", 2, new Dictionary<string,int>() {["node"] = 2 }
+            };
+        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
 }

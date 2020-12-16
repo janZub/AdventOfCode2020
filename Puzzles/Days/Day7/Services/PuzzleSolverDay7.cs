@@ -18,14 +18,34 @@ namespace Puzzles.Day7
                 keepSearching = false;
                 foreach (var node in graph)
                 {
-                    if (node.Value.ConnectedNodesBelow.Any(n => nodesConnectedToSearchedNode.Contains(n)))
+                    if (node.Value.ConnectedNodesBelow.Keys.Any(n => nodesConnectedToSearchedNode.Contains(n)))
                     {
                         if (nodesConnectedToSearchedNode.Add(node.Key))
                             keepSearching = true;
                     }
                 }
             }
-            return nodesConnectedToSearchedNode.Count - 1;
+            nodesConnectedToSearchedNode.Remove(searchedNode);
+
+            return nodesConnectedToSearchedNode.Count;
+        }
+        public int FindWeightInNode(Dictionary<string, GraphNodeDay7> graph, string searchedNode)
+        {
+            var weight = 1;
+
+            if (!graph.ContainsKey(searchedNode))
+                return 0;
+
+            if (graph[searchedNode].ConnectedNodesBelow.Count == 0)
+                return 1;
+            else
+            {
+                foreach (var nodeBelow in graph[searchedNode].ConnectedNodesBelow)
+                {
+                    weight += nodeBelow.Value * FindWeightInNode(graph, nodeBelow.Key);
+                }
+                return weight;
+            }
         }
     }
 }

@@ -18,16 +18,26 @@ namespace Puzzles.Tests.Day7
 
             Assert.Equal(expectedConnectedNodes, result);
         }
+
+        [Theory]
+        [ClassData(typeof(FindWeightInNodeData))]
+        public void Should_FindWeight(Dictionary<string, GraphNodeDay7> graph, string searchedNode, int expectedWeight)
+        {
+            var solver = new PuzzleSolverDay7();
+            var result = solver.FindWeightInNode(graph, searchedNode);
+
+            Assert.Equal(expectedWeight, result);
+        }
     }
     public class FindNumberConnectedNodesData : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            var nodes1 = new HashSet<string>() { "node2", "node3" };
-            var nodes2 = new HashSet<string>() { "node4" };
+            var nodes1 = new Dictionary<string, int>() { ["node2"] = 1, ["node3"] = 3 };
+            var nodes2 = new Dictionary<string, int>() { ["node4"] = 2 };
 
-            var graph1 = SetUpGraphMock(nodes1,null, "node1").Object;
-            var graph2 = SetUpGraphMock(nodes2, null, "node2").Object;
+            var graph1 = PuzzleDay7GraphMock.SetUpGraphMock(nodes1, "node1").Object;
+            var graph2 = PuzzleDay7GraphMock.SetUpGraphMock(nodes2, "node2").Object;
 
             yield return new object[] {
                 new Dictionary<string, GraphNodeDay7>()
@@ -47,24 +57,40 @@ namespace Puzzles.Tests.Day7
             };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        private Mock<GraphNodeDay7> SetUpGraphMock(HashSet<string> below, HashSet<string> up, string name)
-        {
-            var moqGraph = new Mock<GraphNodeDay7>();
-            moqGraph
-               .SetupGet(g => g.ConnectedNodesBelow)
-               .Returns(below);
-
-            moqGraph
-                .SetupGet(g => g.ConnectedNodesUp)
-                .Returns(up);
-
-            moqGraph
-              .SetupGet(g => g.Name)
-              .Returns(name);
-
-            return moqGraph;
-        }
     }
 
+    public class FindWeightInNodeData : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            var nodes1 = new Dictionary<string, int>() { ["node2"] = 2, ["node4"] = 2 };
+            var nodes2 = new Dictionary<string, int>() { ["node3"] = 5 };
+            var nodes3 = new Dictionary<string, int>() { ["node4"] = 3 };
+            var nodes4 = new Dictionary<string, int>() { };
+
+            var graph1 = PuzzleDay7GraphMock.SetUpGraphMock(nodes1, "searchedNode").Object;
+            var graph2 = PuzzleDay7GraphMock.SetUpGraphMock(nodes2, "node2").Object;
+            var graph3 = PuzzleDay7GraphMock.SetUpGraphMock(nodes3, "node3").Object;
+            var graph4 = PuzzleDay7GraphMock.SetUpGraphMock(nodes4, "node4").Object;
+
+            yield return new object[] {
+                new Dictionary<string, GraphNodeDay7>()
+                {
+                  [graph1.Name] = graph1,
+                  [graph2.Name] = graph2,
+                  [graph3.Name] = graph3,
+                  [graph4.Name] = graph4
+                },
+                graph1.Name, 1 + 2 + 2 * ( 1 + 5 * (1 + 3 * (1)))
+            };
+            yield return new object[] {
+                new Dictionary<string, GraphNodeDay7>()
+                {
+                  [graph1.Name] = graph1
+                },
+                graph1.Name, 1
+            };
+        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
 }
