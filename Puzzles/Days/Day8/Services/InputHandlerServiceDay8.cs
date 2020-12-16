@@ -34,7 +34,10 @@ namespace Puzzles.Day8
             var action = GetAcctionFromParameters(parameters);
             var value = GetValueFromParameters(parameters);
 
-            return new CommandDay8(action, value);
+            if (CommandDay8.IsCommandChangable(action))
+                return new CommandDay8b(action, value);
+            else
+                return new CommandDay8(action, value);
         }
         private int GetValueFromParameters(List<string> parameters)
         {

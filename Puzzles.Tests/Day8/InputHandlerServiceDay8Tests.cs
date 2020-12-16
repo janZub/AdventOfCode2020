@@ -17,6 +17,7 @@ namespace Puzzles.Tests.Day8
             var inputHandler = new InputHandlerServiceDay8();
             var result = inputHandler.CreateCommand(command);
 
+            result.Should().BeOfType(expected.GetType());
             result.Should().BeEquivalentTo(expected);
         }
 
@@ -36,18 +37,18 @@ namespace Puzzles.Tests.Day8
         public IEnumerator<object[]> GetEnumerator()
         {
             yield return new object[] {
-               "nop +0", new CommandDay8(CommandDay8Enum.nop, 0)
+               "nop +0", new CommandDay8b(CommandDay8Enum.nop, 0)
             };
             yield return new object[] {
                "acc -99", new CommandDay8(CommandDay8Enum.acc, -99)
             };
 
             yield return new object[] {
-               "jmp -2", new CommandDay8(CommandDay8Enum.jmp, -2)
+               "jmp -2", new CommandDay8b(CommandDay8Enum.jmp, -2)
             };
 
             yield return new object[] {
-               "jmp +5", new CommandDay8(CommandDay8Enum.jmp, 5)
+               "jmp +5", new CommandDay8b(CommandDay8Enum.jmp, 5)
             };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
