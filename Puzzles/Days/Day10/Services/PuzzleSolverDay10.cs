@@ -29,14 +29,13 @@ namespace Puzzles.Day10
             return joltDifferenceOf1 * joltDifferenceOf3;
         }
 
-        /*On assumption that there is a lot 3 jolts differences,
-         * and ther is no 2 jolt dirrefence between adapters.
-         * Otherwise there would be few alternatives for Fn=Fn-1+Fn-2+Fn-3
+        /*On assumption that there is no 2 jolt dirrefence between adapters.
+         * Otherwise there would be few changes for Fn=Fn-1+Fn-2+Fn-3
          */
         public ulong GetNumberOfPossibleCombinations(List<int> joltRatings)
         {
             var joltRatingsSortedList = new List<int>(joltRatings.OrderBy(r => r));
-
+            var series = new Dictionary<int, ulong>();
             joltRatingsSortedList.Insert(0, 0);
             joltRatingsSortedList.Add(joltRatingsSortedList.Last() + 3);
 
@@ -44,10 +43,35 @@ namespace Puzzles.Day10
             ulong combinations = 1;
             foreach (var element in collection.Where(e => e.Count > 2))
             {
-                combinations *= GetCombinationsInSet(element);
+                var subsetLength = element.Count;
+
+                if(subsetLength > series.Count)
+                    series = GenerateSeriesToN(series, subsetLength);
+
+                combinations *= series[subsetLength - 1];
             }
             return combinations;
         }
+
+        private Dictionary<int, ulong> GenerateSeriesToN(Dictionary<int, ulong> series, int n)
+        {
+            var seriesLength = series.Count;
+            if (seriesLength < 3)
+            {
+                series[0] = 1;
+                series[1] = 1;
+                series[2] = 2;
+            }
+            seriesLength = series.Count;
+
+            for (int i = seriesLength; i <= n; i++)
+            {
+                var nextValue = series[i - 1] + series[i - 2] + series[i - 3];
+                series.Add(i, nextValue);
+            }
+            return series;
+        }
+
 
         private List<List<int>> GetSubsets(List<int> joltRatingsSortedList)
         {
@@ -66,22 +90,6 @@ namespace Puzzles.Day10
                 }
             }
             return collection;
-        }
-
-        private ulong GetCombinationsInSet(List<int> set)
-        {
-            ulong combinations = 0;
-
-            if (set.Count == 1 || set.Count == 2)
-                return 1;
-
-            combinations += GetCombinationsInSet(set.Skip(1).ToList());
-            combinations += GetCombinationsInSet(set.Skip(2).ToList());
-
-            if (set.Count > 3)
-                combinations += GetCombinationsInSet(set.Skip(3).ToList());
-
-            return combinations;
         }
     }
 }
