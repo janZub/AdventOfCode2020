@@ -21,9 +21,5 @@ namespace Puzzles.Day10
 
             inputData = input.Select(i => int.Parse(i)).ToList();
         }
-        public override void DeliverResults()
-        {
-            Console.WriteLine(string.Format("1-jolt differences * 3-jolt differencees is {0}", solution));
-        }
     }
 }

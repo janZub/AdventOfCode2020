@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Puzzles.Tests.Day10
 {
-    public class PuzzleDaySolver10Tests
+    public class PuzzleSolverDay10Tests
     {
         [Theory]
         [MemberData(nameof(GetProductOfJoltDifferencesData))]
