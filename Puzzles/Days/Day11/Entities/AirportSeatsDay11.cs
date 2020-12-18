@@ -6,15 +6,19 @@ namespace Puzzles.Day11
 {
     public class AirportSeatsDay11
     {
-        private char[,] seats;
+        private SeatDay11[,] seats;
         private int width;
         private int height;
 
-        public AirportSeatsDay11(char[,] airportSeats)
+        private ISittingStrategy strategy;
+
+        public AirportSeatsDay11(ISittingStrategy sittingStrategy, SeatDay11[,] airportSeats)
         {
             seats = airportSeats;
             height = airportSeats.GetLength(0);
             width = airportSeats.GetLength(1);
+
+            strategy = sittingStrategy;
         }
 
         public int GetNumberOfOccupiedSeats()
@@ -24,7 +28,7 @@ namespace Puzzles.Day11
             {
                 for (int j = 0; j < width; j++)
                 {
-                    if (IsSeatOccupied(i, j))
+                    if (seats[i, j].IsOccupied())
                         numberOfOccupiedSeats++;
                 }
             }
@@ -33,77 +37,15 @@ namespace Puzzles.Day11
         public bool ChangeState()
         {
             var seatsToChangeState = GetSeatsToChange();
+            var changedSeats = false;
+
             foreach (var seat in seatsToChangeState)
-                ChangeState(seat.Item1, seat.Item2);
-
-            if (seatsToChangeState.Count > 0)
-                return true;
-
-            return false;
-        }
-
-        private List<Tuple<int, int>> GetSeatsToChange()
-        {
-            var seatToChange = new List<Tuple<int, int>>();
-
-            for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < width; j++)
-                {
-                    if (IsFloor(i, j))
-                        continue;
-
-                    var occupiedNeighbours = CountOccupiedNeighbours(i, j);
-                    var isOccupied = IsSeatOccupied(i, j);
-
-                    if (occupiedNeighbours >= 4 && isOccupied)
-                        seatToChange.Add(new Tuple<int, int>(i, j));
-
-                    else if (occupiedNeighbours == 0 && !isOccupied)
-                        seatToChange.Add(new Tuple<int, int>(i, j));
-                }
+                if (seat.ChangeState())
+                    changedSeats = true;
             }
 
-            return seatToChange;
-        }
-        private int CountOccupiedNeighbours(int i, int j)
-        {
-            var occupiedSeats = 0;
-            for (int i2 = i - 1; i2 <= i + 1; i2++)
-            {
-                for (int j2 = j - 1; j2 <= j + 1; j2++)
-                {
-                    if (IsSeatOccupied(i2, j2))
-                        occupiedSeats++;
-                }
-            }
-
-            if (IsSeatOccupied(i, j))
-                occupiedSeats--;
-
-            return occupiedSeats;
-        }
-        private bool IsSeatOccupied(int i, int j)
-        {
-            if (i < 0 || j < 0 || i > height - 1 || j > width - 1)
-                return false;
-
-            if (seats[i, j] == '#')
-                return true;
-
-            return false;
-        }
-        private bool IsFloor(int i, int j)
-        {
-            return seats[i, j] == '.';
-        }
-        private void ChangeState(int i, int j)
-        {
-            if (seats[i, j] == 'L')
-                seats[i, j] = '#';
-
-            else if (seats[i, j] == '#')
-                seats[i, j] = 'L';
+            return changedSeats;
         }
 
         public void PrintSeats()
@@ -112,10 +54,30 @@ namespace Puzzles.Day11
             {
                 var line = "";
                 for (int j = 0; j < width; j++)
-                    line += (seats[i, j]);
+                    line += seats[i, j].SeatState;
 
                 Console.WriteLine(line);
             }
         }
+
+        private List<SeatDay11> GetSeatsToChange()
+        {
+            var seatToChange = new List<SeatDay11>();
+
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    var seat = seats[i, j];
+                    var occupiedNeighbours = strategy.CountOccupiedNeighbours(seats, i, j);
+
+                    if (strategy.ShouldChangeState(seat, occupiedNeighbours))
+                        seatToChange.Add(seat);
+                }
+            }
+
+            return seatToChange;
+        }
+
     }
 }

@@ -5,12 +5,12 @@ using Utils;
 
 namespace Puzzles.Day11
 {
-    public class PuzzleDay11a : PuzzleDay11
+    public class PuzzleDay11b : PuzzleDay11
     {
         public override void ReadInput()
         {
             var seats = ProcessInputToArray();
-            inputData = new AirportSeatsDay11(new CloseNeighboursStrategy(), seats);
+            inputData = new AirportSeatsDay11(new InVisionNeighbourStrategy(), seats);
         }
     }
 }

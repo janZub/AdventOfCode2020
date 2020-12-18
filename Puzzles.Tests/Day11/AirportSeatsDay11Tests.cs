@@ -1,4 +1,5 @@
-﻿using Puzzles.Day11;
+﻿using Moq;
+using Puzzles.Day11;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,25 +31,28 @@ namespace Puzzles.Tests.Day11
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            var chairs1 = new char[2, 2]
+            var strategyMock = new Mock<ISittingStrategy>();
+            var seats1 = new SeatDay11[2, 2]
             {
-                { '.','L' },
-                { '.','#' }
+                {new SeatDay11('.'), new SeatDay11('L') },
+                { new SeatDay11('.'), new SeatDay11('#') }
             };
 
-            var chairs2 = new char[3, 3]
+            var seats2 = new SeatDay11[3, 2]
             {
-                { '.','L','L' },
-                { '.','L', '#' },
-                { '#','#', '#' },
+                {new SeatDay11('.'), new SeatDay11('L') },
+                { new SeatDay11('.'), new SeatDay11('#') },
+                { new SeatDay11('#'), new SeatDay11('#') }
             };
-            var airportSeat1 = new AirportSeatsDay11(chairs1);
-            var airportSeat2 = new AirportSeatsDay11(chairs2);
+
+            var airportSeat1 = new AirportSeatsDay11(strategyMock.Object, seats1);
+            var airportSeat2 = new AirportSeatsDay11(strategyMock.Object, seats2);
+
             yield return new object[] {
                 airportSeat1, 1
             };
             yield return new object[] {
-                airportSeat2, 4
+                airportSeat2, 3
             };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -58,26 +62,51 @@ namespace Puzzles.Tests.Day11
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            var chairs1 = new char[2, 2]
+            var strategyMock1 = new Mock<ISittingStrategy>();
+            var strategyMock2 = new Mock<ISittingStrategy>();
+            var strategyMock3 = new Mock<ISittingStrategy>();
+
+            var seats1 = new SeatDay11[2, 2]
             {
-                { '.','L' },
-                { '.','L' }
+                {new SeatDay11('#'), new SeatDay11('L') },
+                { new SeatDay11('L'), new SeatDay11('#') }
             };
 
-            var chairs2 = new char[3, 3]
+            var seats2 = new SeatDay11[2, 2]
             {
-                { '#','#', '#' },
-                { '.','L', '.' },
-                { '#','#', '#' },
+                {new SeatDay11('.'), new SeatDay11('.') },
+                { new SeatDay11('.'), new SeatDay11('.') }
             };
-            var airportSeat1 = new AirportSeatsDay11(chairs1);
-            var airportSeat2 = new AirportSeatsDay11(chairs2);
-           
+
+            strategyMock1.Setup(s => s.ShouldChangeState(It.IsAny<SeatDay11>(), It.IsAny<int>()))
+                .Returns(true);
+
+            strategyMock2.Setup(s => s.ShouldChangeState(It.IsAny<SeatDay11>(), It.IsAny<int>()))
+                .Returns(false);
+
+
+            strategyMock3.Setup(s => s.CountOccupiedNeighbours(It.IsAny<SeatDay11[,]>(), 1, 1)).Returns(10);
+            strategyMock3.SetReturnsDefault(false);
+            strategyMock3.Setup(s => s.ShouldChangeState(It.IsAny<SeatDay11>(), 10))
+                .Returns(true);
+
+
+            var airportSeats1 = new AirportSeatsDay11(strategyMock1.Object, seats1);
+            var airportSeats2 = new AirportSeatsDay11(strategyMock2.Object, seats1);
+            var airportSeats3 = new AirportSeatsDay11(strategyMock3.Object, seats1);
+            var airportSeats4 = new AirportSeatsDay11(strategyMock1.Object, seats2);
+
             yield return new object[] {
-                airportSeat1, true
+                airportSeats1, true
             };
             yield return new object[] {
-                airportSeat2, false
+                airportSeats2, false
+            };
+            yield return new object[] {
+                airportSeats3, true
+            };
+            yield return new object[] {
+                airportSeats4, false
             };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
