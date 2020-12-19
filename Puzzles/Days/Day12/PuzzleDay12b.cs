@@ -5,11 +5,11 @@ using Utils;
 
 namespace Puzzles.Day12
 {
-    public class PuzzleDay12a : PuzzleDay12
+    public class PuzzleDay12b : PuzzleDay12
     {
         public override void Solve()
         {
-            var ship = new ShipDay12a();
+            var ship = new ShipDay12b();
             foreach (var cmd in inputData)
                 ship.ExecuteCommand(cmd);
 

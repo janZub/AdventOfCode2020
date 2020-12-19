@@ -6,18 +6,25 @@ namespace Puzzles.Day12
 {
     public class CommandDay12
     {
-        public DirectionDay12Enum Direction { get; private set; }
-        public CommandTypeDay12Enum CommandType { get; private set; }
-        public int ActionValue { get; private set; }
-
-        public CommandDay12(string commandString)
+        public virtual DirectionDay12Enum Direction { get; private set; }
+        public virtual CommandTypeDay12Enum CommandType { get; private set; }
+        public virtual int ActionValue { get; private set; }
+        public static CommandDay12 CreateCommand(string commandString)
         {
-            SetCommand(commandString);
+            var command = new CommandDay12();
+            command.SetCommand(commandString);
+
+            return command;
         }
+
         private void SetCommand(string commandString)
         {
-            ActionValue = int.Parse(commandString.Substring(1));
-            
+
+            if (string.IsNullOrWhiteSpace(commandString) || !int.TryParse(commandString.Substring(1), out int action))
+                throw new Exception("Expected Cxxx where xxx are digits.");
+
+            ActionValue = action;
+
             switch (commandString[0])
             {
                 case 'N':
@@ -46,14 +53,14 @@ namespace Puzzles.Day12
                     }
                 case 'L':
                     {
-                        CommandType = CommandTypeDay12Enum.Rotate;
-                        ActionValue = 360 - ActionValue%360;
+                        CommandType = CommandTypeDay12Enum.RotateRight;
+                        ActionValue = 360 - ActionValue % 360;
 
                         break;
                     }
                 case 'R':
                     {
-                        CommandType = CommandTypeDay12Enum.Rotate;
+                        CommandType = CommandTypeDay12Enum.RotateRight;
                         break;
                     }
                 case 'F':
@@ -66,6 +73,5 @@ namespace Puzzles.Day12
 
             }
         }
-
     }
 }

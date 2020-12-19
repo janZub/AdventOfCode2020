@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Puzzles.Day12
 {
-    public enum CommandTypeDay12Enum
+    public interface ICommandable
     {
-        Rotate,
-        Forward,
-        IntoDirection
+        public void ExecuteCommand(CommandDay12 command);
     }
 }
