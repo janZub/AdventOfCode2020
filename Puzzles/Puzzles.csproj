@@ -8,8 +8,4 @@
     <ProjectReference Include="..\Utils\Utils.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Days\Day13\Services\" />
-  </ItemGroup>
-
 </Project>
