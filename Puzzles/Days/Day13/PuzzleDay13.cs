@@ -11,10 +11,5 @@ namespace Puzzles.Day13
 
         protected string inputFileileName = "Day13Input";
         protected FileExtensionEnum fileExt = FileExtensionEnum.TXT;
-
-        public override void DeliverResults()
-        {
-            Console.WriteLine(string.Format("Bus * time to wait is {0}.", solution));
-        }
     }
 }

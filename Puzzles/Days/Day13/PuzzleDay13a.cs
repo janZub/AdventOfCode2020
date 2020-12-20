@@ -26,5 +26,9 @@ namespace Puzzles.Day13
             var busAndWaitingTime = busesAndWaitingTime.Where(t => t.Item1 != t.Item2).OrderBy(t => t.Item2).First();
             solution = busAndWaitingTime.Item1 * busAndWaitingTime.Item2;
         }
+        public override void DeliverResults()
+        {
+            Console.WriteLine(string.Format("Bus * time to wait is {0}.", solution));
+        }
     }
 }
