@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Puzzles.Day14
 {
-    public class MaskDay14 : IMask
+    public abstract class MaskDay14 : IMask
     {
         public char[] Mask { get; protected set; }
 
@@ -12,22 +12,6 @@ namespace Puzzles.Day14
         {
             Mask = mask.ToCharArray();
         }
-        public char[] ApplyMask(char[] number)
-        {
-            if (number.Length < 36)
-                throw new Exception();
-
-            var result = number;
-
-            for (int i = 0; i < Mask.Length; i++)
-            {
-                if (Mask[i] == 'X')
-                    continue;
-
-                result[i] = Mask[i];
-            }
-
-            return number;
-        }
+        public abstract char[] ApplyMask(char[] number);
     }
 }

@@ -37,13 +37,43 @@ namespace Puzzles.Day14
 
             return number;
         }
-        public static ulong ApplyMaskToNumber(ulong number, IMask mask)
+        public static char[] ApplyMaskToNumber(ulong number, IMask mask)
         {
             var numberToString = ConvertNumberToCharArray(number);
             var numberAfterMask = mask.ApplyMask(numberToString);
-            var numberUlong = ConvertCharArrayToNumber(numberAfterMask);
 
-            return numberUlong;
+            return numberAfterMask;
+        }
+
+        //not elegant
+        public static List<ulong> CreateNumbersFromInstableAddress(char[] unstableAdress)
+        {
+            var list = new List<ulong>();
+            bool hasX = false;
+
+            for (int i = 0; i < unstableAdress.Length; i++)
+            {
+                if (unstableAdress[i] == 'X')
+                {
+                    hasX = true;
+
+                    var possibilty1 = (char[])unstableAdress.Clone();
+                    var possibilty2 = (char[])unstableAdress.Clone();
+
+                    possibilty1[i] = '0';
+                    list.AddRange(CreateNumbersFromInstableAddress(possibilty1));
+
+                    possibilty2[i] = '1';
+                    list.AddRange(CreateNumbersFromInstableAddress(possibilty2));
+
+                    break;
+                }
+            }
+
+            if (!hasX)
+                list.Add(ConvertCharArrayToNumber(unstableAdress));
+
+            return list;
         }
     }
 }

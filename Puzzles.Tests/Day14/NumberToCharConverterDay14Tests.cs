@@ -37,9 +37,17 @@ namespace Puzzles.Tests.Day14
         }
         [Theory]
         [ClassData(typeof(ApplyMaskToNumberData))]
-        public void Should_ApplyMaskToNumber(ulong number, IMask mask, ulong expected)
+        public void Should_ApplyMaskToNumber(ulong number, IMask mask, char[] expected)
         {
             var result = NumberToCharConverterDay14.ApplyMaskToNumber(number, mask);
+
+            Assert.Equal(expected, result);
+        }
+        [Theory]
+        [ClassData(typeof(CreateNumbersFromInstableAddressData))]
+        public void Should_CreateNumbersFromInstableAddress(char[] unstableAddress, List<ulong> expected)
+        {
+            var result = NumberToCharConverterDay14.CreateNumbersFromInstableAddress(unstableAddress);
 
             Assert.Equal(expected, result);
         }
@@ -59,13 +67,32 @@ namespace Puzzles.Tests.Day14
             mask.Setup(m => m.ApplyMask(nr3)).Returns(nr2);
 
             yield return new object[] {
-               101, mask.Object, 101
+               101, mask.Object, nr1
             };
             yield return new object[] {
-               11, mask.Object, 73
+               11, mask.Object, nr3
             };
             yield return new object[] {
-               73, mask.Object, 11
+               73, mask.Object, nr2
+            };
+        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+    public class CreateNumbersFromInstableAddressData : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            var nr1 = "000000000000000000000000000000X1101X".ToCharArray();
+            var nr2 = "00000000000000000000000000000001X0XX".ToCharArray();
+            var expectedList1 = new List<ulong>(){26,27,58,59};
+
+            var expectedList2 = new List<ulong>(){16,17,18,19,24,25,26,27};
+
+            yield return new object[] {
+              nr1,expectedList1
+            };
+            yield return new object[] {
+               nr2,expectedList2
             };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

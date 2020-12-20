@@ -8,13 +8,13 @@ using Xunit;
 
 namespace Puzzles.Tests.Day14
 {
-    public class MaskDay14Tests
+    public class MaskDay14aTests
     {
         [Theory]
         [MemberData(nameof(ApllyMaskData))]
         public void Should_ApplyMask(string maskCode, char[] number, char[] expected)
         {
-            var mask = new MaskDay14(maskCode);
+            var mask = new MaskDay14a(maskCode);
             var result = mask.ApplyMask(number);
 
             Assert.Equal(expected, result);
