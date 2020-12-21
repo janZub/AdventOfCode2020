@@ -14,6 +14,8 @@ namespace Puzzles.Day18
 
         private string patternParanthesses = @"\(([\d\s\*\+]+)\)";
         private string patternOperations = @"([\d]+)\s?([\*+]?)\s?";
+        private string findPlusOperaion = @"([\d]+)(?:\s\+\s([\d]+))+";
+        private string findMultipleOperaion = @"([\d]+)";
         protected string inputFileileName = "Day18Input";
         protected FileExtensionEnum fileExt = FileExtensionEnum.TXT;
 
@@ -65,19 +67,39 @@ namespace Puzzles.Day18
         }
         private string SolveSubset(string equation)
         {
-            var elements = Regex.Matches(equation, patternOperations);
-
-            var result = ulong.Parse(elements[0].Groups[1].Value);
-            for (int i = 1; i < elements.Count; i++)
+            while (true)
             {
-                var nextElement = ulong.Parse(elements[i].Groups[1].Value.Trim());
 
-                if (elements[i - 1].Groups[2].Value.Trim() == "+")
-                    result += nextElement;
-                else
-                    result *= nextElement;
+                var elements = Regex.Matches(equation, findPlusOperaion);
+
+                if (elements.Count == 0)
+                    break;
+
+                var subset = elements[0];
+                ulong reducedSubset = ulong.Parse(subset.Groups[1].Value);
+                for (int j = 0; j < subset.Groups[2].Captures.Count; j++)
+                {
+                    reducedSubset += ulong.Parse(subset.Groups[2].Captures[j].Value);
+                }
+
+                var aStringBuilder = new StringBuilder(equation);
+                aStringBuilder.Remove(subset.Index, subset.Length);
+                aStringBuilder.Insert(subset.Index, reducedSubset);
+                equation = aStringBuilder.ToString();
+            }
+
+
+            var me = Regex.Matches(equation, findMultipleOperaion);
+            if(me.Count==0)
+                return equation.ToString();
+
+            ulong result = 1;
+            for (int i=0; i< me.Count; i++)
+            {
+                result *= ulong.Parse(me[i].Value);
             }
             return result.ToString();
         }
+
     }
 }
