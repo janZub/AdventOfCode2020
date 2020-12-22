@@ -7,11 +7,11 @@ using Utils;
 
 namespace Puzzles.Day18
 {
-    public class PuzzleDay18a : PuzzleDay18
+    public class PuzzleDay18b : PuzzleDay18
     {
-        public PuzzleDay18a()
+        public PuzzleDay18b()
         {
-            solver = new ExpressionNormalOrder();
+            solver = new ExpressionPlusFirst();
         }
         public override void Solve()
         {
