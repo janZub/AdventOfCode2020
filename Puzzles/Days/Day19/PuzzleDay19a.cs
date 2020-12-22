@@ -30,7 +30,7 @@ namespace Puzzles.Day19
                 var ruleValue = ruleData.Groups[2].Value.Replace("\"", "");
                 var newRule = new RuleDay19(id, ruleValue);
 
-                if(newRule.Id == 11)
+                if (newRule.Id == 11)
                 {
                     //shameless solution for 19b
                     for (int i = 2; i < 10; i++)
@@ -38,8 +38,8 @@ namespace Puzzles.Day19
                         var duplicate42 = string.Concat(Enumerable.Repeat("42 ", i));
                         var duplicate31 = string.Concat(Enumerable.Repeat("31 ", i));
                         string result = duplicate42 + duplicate31;
-                        newRule.Rule +=" | " + result;
-}
+                        newRule.Rule += " | " + result;
+                    }
                 }
 
                 rules.Add(newRule);
@@ -66,7 +66,7 @@ namespace Puzzles.Day19
 
                 var aStringBuilder = new StringBuilder(rule0.Rule);
                 foreach (var rule in rulesToReplace.OrderByDescending(i => i.Index))
-                { 
+                {
                     var ruleReplacement = rules.First(r => r.Id == rule.Id);
 
                     aStringBuilder.Remove(rule.Index, rule.Id.ToString().Length);
@@ -74,7 +74,7 @@ namespace Puzzles.Day19
                 }
                 rule0.Rule = aStringBuilder.ToString();
             }
-            rule0.Rule = "^"+ Regex.Replace(rule0.Rule, @"\s+", "")+"$";
+            rule0.Rule = "^" + Regex.Replace(rule0.Rule, @"\s+", "") + "$";
 
             foreach (var input in messages)
             {
