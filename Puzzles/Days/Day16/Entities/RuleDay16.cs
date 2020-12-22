@@ -6,8 +6,8 @@ namespace Puzzles.Day16
 {
     public class RuleDay16
     {
-        public List<Tuple<int, int>> Ranges { get; set; }
-        public string Name { get; private set; }
+        public virtual List<Tuple<int, int>> Ranges { get; set; }
+        public virtual string Name { get; private set; }
         public RuleDay16(string name)
         {
             Ranges = new List<Tuple<int, int>>();

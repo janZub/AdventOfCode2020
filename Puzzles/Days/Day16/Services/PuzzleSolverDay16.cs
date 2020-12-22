@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Puzzles.Day16
 {
+    //such class with List<object> input is pain to test is it design error?
+    //should I have put in mockable object containing this list?
+    //maybe there should be TicketValidator with injected list of rules
+    //and it should have these funcions
     public class PuzzleSolverDay16
     {
         public ulong GetInvalidNumbers(List<RuleDay16> rules, List<List<int>> ticketsData)
