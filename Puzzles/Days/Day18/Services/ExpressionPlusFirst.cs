@@ -5,12 +5,12 @@ using System.Text.RegularExpressions;
 
 namespace Puzzles.Day18
 {
-    public class ExpressionPlusFirst : ExpressionSolverService
+    public class ExpressionPlusFirst : ExpressionNormalOrder
     {
         protected static string findPlusOperaion = @"([\d]+)(?:\s\+\s([\d]+))+";
         protected static string findMultipleOperaion = @"([\d]+)";
 
-        public override string SolveSimpleExpression(string expression)
+        protected override string SolveSimpleExpression(string expression)
         {
             expression = SolvePlusExpressions(expression);
             expression = SolveMultiplyExpressions(expression);
