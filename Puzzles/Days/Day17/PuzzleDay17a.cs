@@ -5,24 +5,12 @@ using Utils;
 
 namespace Puzzles.Day17
 {
-    public class PuzzleDay17a : Puzzle
+    public class PuzzleDay17a : PuzzleDay17
     {
-        protected PocketDimensionDay17 inputData;
-        protected int solution;
-        protected int cycles = 6;
-
-        protected string inputFileileName = "Day17Input";
-        protected FileExtensionEnum fileExt = FileExtensionEnum.TXT;
-
-        public override void DeliverResults()
-        {
-            Console.WriteLine(string.Format("There are {0} seats occupied.", solution));
-
-        }
         public override void ReadInput()
         {
             var cubes = ProcessInputToArray(cycles + 1);
-            inputData = new PocketDimensionDay17(cubes, new CloseNeighboursStrategy());
+            inputData = new D3PocketDimensionDay17(cubes, new D3CloseNeighboursStrategy<CubeDay17[,,]>());
         }
         public override void Solve()
         {
@@ -32,15 +20,16 @@ namespace Puzzles.Day17
             }
             solution = inputData.GetNumberOfActiveCubes();
         }
-        protected CubeDay17[,,] ProcessInputToArray(int maxDepth)
+        protected CubeDay17[,,] ProcessInputToArray(int depth)
         {
             var path = PuzzleUtils.PuzzleInputsPath;
             var input = FileReader.ReadFile(path, inputFileileName, fileExt);
             var width = input[0].Trim().Length;
             var height = input.Count;
 
-            var maxWidth = width + 2 * maxDepth;
-            var maxHeight = height + 2 * maxDepth;
+            var maxWidth = width + 2 * depth;
+            var maxHeight = height + 2 * depth;
+            var maxDepth = 1 + 2 * depth;
 
             var cubes = new CubeDay17[maxHeight, maxWidth, maxDepth];
 
@@ -48,12 +37,12 @@ namespace Puzzles.Day17
                 for (int j = 0; j < maxWidth; j++)
                     for (int k = 0; k < maxDepth; k++)
                     {
-                        if (k == 0
-                            && i > maxDepth -1 && j > maxDepth- 1
-                            && i < height +  maxDepth
-                            && j < width + maxDepth)
-                            
-                            cubes[i, j, k] = new CubeDay17(input[i-maxDepth].Trim()[j -maxDepth]);
+                        if (k == depth + 1
+                            && i > depth - 1 && j > depth - 1
+                            && i < height + depth
+                            && j < width + depth)
+
+                            cubes[i, j, k] = new CubeDay17(input[i - depth].Trim()[j - depth]);
                         else
                             cubes[i, j, k] = new CubeDay17('.');
                     }

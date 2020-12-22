@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace Puzzles.Day17
 {
-    public class PocketDimensionDay17
+    public class D3PocketDimensionDay17 : IDimension
     {
         private CubeDay17[,,] cubes;
         private int width;
         private int height;
         private int depth;
 
-        private ICubeActivationStrategy strategy;
+        private ICubeActivationStrategy<CubeDay17[,,]> strategy;
 
-        public PocketDimensionDay17(CubeDay17[,,] pocketDimensionCubes, ICubeActivationStrategy cubeStrategy)
+        public D3PocketDimensionDay17(CubeDay17[,,] pocketDimensionCubes, ICubeActivationStrategy<CubeDay17[,,]> cubeStrategy)
         {
             cubes = pocketDimensionCubes;
             height = cubes.GetLength(0);
@@ -35,8 +35,6 @@ namespace Puzzles.Day17
                         if (cubes[i, j, k].IsOccupied())
                         {
                             numberOfOccupiedCubes++;
-                            if (k != 0)
-                                numberOfOccupiedCubes++;
                         }
                     }
                 }
@@ -68,7 +66,8 @@ namespace Puzzles.Day17
                     for (int k = 0; k < depth; k++)
                     {
                         var cube = cubes[i, j, k];
-                        var occupiedNeighbours = strategy.CountOccupiedNeighbours(cubes, i, j, k);
+                        var points = new List<int>() { i, j, k };
+                        var occupiedNeighbours = strategy.CountOccupiedNeighbours(cubes, points);
 
                         if (strategy.ShouldChangeState(cube, occupiedNeighbours))
                             cubesToChange.Add(cube);

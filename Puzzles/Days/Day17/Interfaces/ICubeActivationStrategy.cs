@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Puzzles.Day17
 {
-    public interface ICubeActivationStrategy
+    public interface ICubeActivationStrategy<T>
     {
-        public int CountOccupiedNeighbours(CubeDay17[,,] cubes, int i, int j, int k);
+        public int CountOccupiedNeighbours(T cubes, List<int> points);
         public bool ShouldChangeState(CubeDay17 cube, int neighbours);
     }
 }

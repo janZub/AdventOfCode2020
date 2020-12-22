@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Puzzles.Day17
 {
-    public class CloseNeighboursStrategy : ICubeActivationStrategy
+    public class D3CloseNeighboursStrategy<T> : ICubeActivationStrategy<CubeDay17[,,]>
     {
-        public int CountOccupiedNeighbours(CubeDay17[,,] cubes, int i, int j, int k)
+        public int CountOccupiedNeighbours(CubeDay17[,,] cubes, List<int> points)
         {
             var occupiedNeighbourSeats = 0;
             var maxColumnIndex = cubes.GetLength(0) - 1;
@@ -19,11 +19,11 @@ namespace Puzzles.Day17
                 {
                     for (int n = -1; n <= 1; n++)
                     {
-                        var neighbourCoulmnIndex = i - m;
-                        var neighbourRowIndex = j - l;
-                        var neighbourDepthIndex = k - n;
+                        var neighbourCoulmnIndex = points[0] - m;
+                        var neighbourRowIndex = points[1] - l;
+                        var neighbourDepthIndex = points[2] - n;
 
-                        if (neighbourCoulmnIndex == i && neighbourRowIndex == j && neighbourDepthIndex == k)
+                        if (neighbourCoulmnIndex == points[0] && neighbourRowIndex == points[1] && neighbourDepthIndex == points[2])
                             continue;
 
                         if (neighbourCoulmnIndex < 0 || neighbourCoulmnIndex > maxColumnIndex)
@@ -37,9 +37,6 @@ namespace Puzzles.Day17
 
                         if (cubes[neighbourCoulmnIndex, neighbourRowIndex, neighbourDepthIndex].IsOccupied())
                         {
-                            if (k == 0 && neighbourDepthIndex !=0)
-                                occupiedNeighbourSeats++;
-
                             occupiedNeighbourSeats++;
                         }
                     }
