@@ -7,11 +7,11 @@ using Utils;
 
 namespace Puzzles.Day22
 {
-    public class PuzzleDay22a : PuzzleDay22
+    public class PuzzleDay22b : PuzzleDay22
     {
         protected override IGame CreateGame(List<int> player1Cards, List<int> player2Cards)
         {
-            return new CrabCombatDay22(player1Cards, player2Cards);
+            return new RecursiveCombatDay22(player1Cards, player2Cards);
         }
     }
 }
