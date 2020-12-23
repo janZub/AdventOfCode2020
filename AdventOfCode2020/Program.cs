@@ -8,7 +8,7 @@ namespace AdventOfCode2020
     {
         static void Main(string[] args)
         {
-            var day = PuzzleFactory.GetPuzzle(21, "a");
+            var day = PuzzleFactory.GetPuzzle(22, "a");
 
             day.ReadInput();
             day.Solve();
