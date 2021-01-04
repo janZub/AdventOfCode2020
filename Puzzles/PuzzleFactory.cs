@@ -40,10 +40,10 @@ namespace Puzzles
                 throw new ArgumentException("Suffix must not be empty.", "daySuffix");
 
             if (daySuffix.Length > 3)
-                throw new ArgumentException("Suffix cannot be that ulong.", "daySuffix");
+                throw new ArgumentException("Suffix cannot be that long.", "daySuffix");
 
             if (daySuffix.Any(c => char.IsWhiteSpace(c)))
-                throw new ArgumentException("Suffix cannot be that ulong.", "daySuffix");
+                throw new ArgumentException("Suffix cannot be that long.", "daySuffix");
         }
         public static string CreatePuzzleDayClassName(int dayNumber, string daySuffix)
         {
