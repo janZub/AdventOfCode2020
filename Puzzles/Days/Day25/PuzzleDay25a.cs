@@ -14,6 +14,8 @@ namespace Puzzles.Day25
         protected FileExtensionEnum fileExt = FileExtensionEnum.TXT;
         protected ulong cardPublicKey;
         protected ulong doorPublicKey;
+        protected Cipher cipher = new Cipher();
+
 
         public override void ReadInput()
         {
@@ -25,38 +27,13 @@ namespace Puzzles.Day25
         }
         public override void Solve()
         {
-            var doorLoopSize = FindLoopSize(cardPublicKey);
-            solution = TransformNumber(doorPublicKey, doorLoopSize);
+            var doorLoopSize = cipher.FindLoopSize(cardPublicKey);
+            solution = cipher.TransformNumber(doorPublicKey, doorLoopSize);
 
         }
         public override void DeliverResults()
         {
-        }
-
-        private ulong FindLoopSize(ulong publicKey)
-        {
-            ulong doorLoopSize = 0;
-            ulong value = 1;
-
-            while (true)
-            {
-                ++doorLoopSize;
-                value *= 7;
-                value %= 20201227;
-
-                if (value == publicKey)
-                    return doorLoopSize;
-            }
-        }
-        private ulong TransformNumber(ulong value, ulong loopSize)
-        {
-            ulong encryption = 1;
-            for (ulong i = 0; i < loopSize; i++)
-            {
-                encryption *= value;
-                encryption %= 20201227;
-            }
-            return encryption;
+            Console.WriteLine(string.Format("The code is {0}", solution));
         }
     }
 }

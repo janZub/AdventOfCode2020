@@ -8,7 +8,7 @@ namespace Puzzles.Tests.Utils
     {
         [Theory]
         [InlineData(1, "a")]
-        [InlineData(25, "suf")]
+        [InlineData(24, "b")]
         public void Should_ValidateArguments(int dayNumber, string daySuffix)
         {
             PuzzleFactory.ValidateArguments(dayNumber, daySuffix);
@@ -16,7 +16,7 @@ namespace Puzzles.Tests.Utils
 
         [Theory]
         [InlineData(-4, "a")]
-        [InlineData(32, "suff")]
+        [InlineData(32, "b")]
         public void ShouldNot_ValidateArguments_dayNumber(int dayNumber, string daySuffix)
         {
             Assert.Throws<ArgumentException>("dayNumber", () => PuzzleFactory.ValidateArguments(dayNumber, daySuffix));
@@ -26,6 +26,7 @@ namespace Puzzles.Tests.Utils
         [InlineData(2, "")]
         [InlineData(4, "looongSuffix")]
         [InlineData(8, "s w")]
+        [InlineData(2, "c")]
         public void ShouldNot_ValidateArguments_daySuffix(int dayNumber, string daySuffix)
         {
             Assert.Throws<ArgumentException>("daySuffix", () => PuzzleFactory.ValidateArguments(dayNumber, daySuffix));
