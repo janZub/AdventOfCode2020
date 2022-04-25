@@ -7,7 +7,6 @@ namespace Puzzles
 {
     public abstract class Puzzle
     {
-        //test
         public abstract void ReadInput();
         public abstract void Solve();
         public abstract void DeliverResults();
